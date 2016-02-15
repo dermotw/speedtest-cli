@@ -4,24 +4,12 @@ speedtest-cli
 Command line interface for testing internet bandwidth using
 speedtest.net
 
-.. image:: https://img.shields.io/pypi/v/speedtest-cli.svg
-        :target: https://pypi.python.org/pypi/speedtest-cli/
-        :alt: Latest Version
-.. image:: https://img.shields.io/pypi/dm/speedtest-cli.svg
-        :target: https://pypi.python.org/pypi/speedtest-cli/
-        :alt: Downloads
-.. image:: https://img.shields.io/pypi/l/speedtest-cli.svg
-        :target: https://pypi.python.org/pypi/speedtest-cli/
-        :alt: License
+**This version is forked from https://github.com/sivel/speedtest-cli - I've added --json, which outputs the results as a JSON object (for further processing) and suppresses all other output.**
 
 Versions
 --------
 
 speedtest-cli works with Python 2.4-3.4
-
-.. image:: https://img.shields.io/pypi/pyversions/speedtest-cli.svg
-        :target: https://pypi.python.org/pypi/speedtest-cli/
-        :alt: Versions
 
 Installation
 ------------
@@ -44,13 +32,13 @@ Github
 
 ::
 
-    pip install git+https://github.com/sivel/speedtest-cli.git
+    pip install git+https://github.com/dermotw/speedtest-cli.git
 
 or
 
 ::
 
-    git clone https://github.com/sivel/speedtest-cli.git
+    git clone https://github.com/dermotw/speedtest-cli.git
     python speedtest-cli/setup.py install
 
 Just download (Like the way it used to be)
@@ -58,14 +46,14 @@ Just download (Like the way it used to be)
 
 ::
 
-    wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest_cli.py
+    wget -O speedtest-cli https://raw.githubusercontent.com/dermotw/speedtest-cli/master/speedtest_cli.py
     chmod +x speedtest-cli
 
 or
 
 ::
 
-    curl -Lo speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest_cli.py
+    curl -Lo speedtest-cli https://raw.githubusercontent.com/dermotw/speedtest-cli/master/speedtest_cli.py
     chmod +x speedtest-cli
 
 Usage
@@ -80,7 +68,7 @@ Usage
 
     Command line interface for testing internet bandwidth using speedtest.net.
     --------------------------------------------------------------------------
-    https://github.com/sivel/speedtest-cli
+    https://github.com/dermotw/speedtest-cli
 
     optional arguments:
       -h, --help         show this help message and exit
@@ -89,6 +77,7 @@ Usage
       --share            Generate and provide a URL to the speedtest.net share
                          results image
       --simple           Suppress verbose output, only show basic information
+      --json             Output results as a JSON object
       --list             Display a list of speedtest.net servers sorted by
                          distance
       --server SERVER    Specify a server ID to test against
