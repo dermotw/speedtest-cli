@@ -24,6 +24,7 @@ import socket
 import timeit
 import platform
 import threading
+import json
 
 __version__ = '0.3.4'
 
@@ -579,6 +580,8 @@ def speedtest():
     parser.add_argument('--simple', action='store_true',
                         help='Suppress verbose output, only show basic '
                              'information')
+    parser.add_argument('--json', action='store_true',
+			help='Output results as a JSON object')
     parser.add_argument('--list', action='store_true',
                         help='Display a list of speedtest.net servers '
                              'sorted by distance')
@@ -616,6 +619,9 @@ def speedtest():
 
     if args.secure:
         scheme = 'https'
+
+    if args.json:
+	args.simple = True
 
     if not args.simple:
         print_('Retrieving speedtest.net configuration...')
@@ -705,7 +711,7 @@ def speedtest():
     if not args.simple:
         print_(('Hosted by %(sponsor)s (%(name)s) [%(d)0.2f km]: '
                '%(latency)s ms' % best).encode('utf-8', 'ignore'))
-    else:
+    elif not args.json:
         print_('Ping: %(latency)s ms' % best)
 
     sizes = [350, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
@@ -719,8 +725,9 @@ def speedtest():
     dlspeed = downloadSpeed(urls, args.simple)
     if not args.simple:
         print_()
-    print_('Download: %0.2f M%s/s' %
-           ((dlspeed / 1000 / 1000) * args.units[1], args.units[0]))
+    if not args.json:
+	    print_('Download: %0.2f M%s/s' %
+        	   ((dlspeed / 1000 / 1000) * args.units[1], args.units[0]))
 
     sizesizes = [int(.25 * 1000 * 1000), int(.5 * 1000 * 1000)]
     sizes = []
@@ -732,9 +739,11 @@ def speedtest():
     ulspeed = uploadSpeed(best['url'], sizes, args.simple)
     if not args.simple:
         print_()
-    print_('Upload: %0.2f M%s/s' %
-           ((ulspeed / 1000 / 1000) * args.units[1], args.units[0]))
-
+    if not args.json:
+    	print_('Upload: %0.2f M%s/s' %
+           	((ulspeed / 1000 / 1000) * args.units[1], args.units[0]))
+    if args.json:
+	print_(json.dumps({'dlspeed' : dlspeed * 8, 'ulspeed' : ulspeed * 8, 'latency' : best['latency'] }))
     if args.share and args.mini:
         print_('Cannot generate a speedtest.net share results image while '
                'testing against a Speedtest Mini server')
