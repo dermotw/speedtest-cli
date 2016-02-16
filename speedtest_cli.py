@@ -26,7 +26,7 @@ import platform
 import threading
 import json
 
-__version__ = '0.3.4'
+__version__ = '0.3.6'
 
 # Some global variables we use
 user_agent = None
@@ -623,7 +623,7 @@ def speedtest():
     if args.json:
 	args.simple = True
 
-    if not args.simple:
+    if not args.simple and not args.mini:
         print_('Retrieving speedtest.net configuration...')
     try:
         config = getConfig()
@@ -631,9 +631,9 @@ def speedtest():
         print_('Cannot retrieve speedtest configuration')
         sys.exit(1)
 
-    if not args.simple:
+    if not args.simple and not args.mini:
         print_('Retrieving speedtest.net server list...')
-    if args.list or args.server:
+    if not args.mini and args.list or args.server:
         servers = closestServers(config['client'], True)
         if args.list:
             serverList = []
